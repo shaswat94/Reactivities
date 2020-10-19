@@ -33,8 +33,14 @@ namespace API
             });
 
             services.AddCors(opt => {
-                opt.AddPolicy("CORSPolicy", policy => {
+                opt.AddPolicy("ReactClientCORS", policy => {
                     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+                });
+            });
+
+            services.AddCors(opt => {
+                opt.AddPolicy("AngularClientCORS", policy => {
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
                 });
             });
 
@@ -60,7 +66,8 @@ namespace API
 
             app.UseRouting();
 
-            app.UseCors("CORSPolicy");
+            app.UseCors("ReactClientCORS");
+            app.UseCors("AngularClientCORS");
 
             app.UseAuthorization();
 
